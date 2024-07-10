@@ -6,6 +6,11 @@ const express = require('express');
 // Use Express EJS Layouts for templating
 const expressLayout = require('express-ejs-layouts');
 
+const connectDB = require('./server/config/db');
+
+// Connect to DB
+connectDB();
+
 // Create an instance of the Express app
 const app = express();
 
