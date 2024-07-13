@@ -274,7 +274,8 @@ textarea {
   text-align: center;
 }
 
-.searchBar{
+/* SeachBar */
+.searchBar {
   visibility: hidden;
   transform: translateY(-100px);
   background-color: var(--black);
@@ -284,21 +285,21 @@ textarea {
   right: 0;
 }
 
-.searchBar.open{
+.searchBar.open {
   transform: translateY(0);
   transition: transform 0.1s;
 }
 
-.searchBar input{
+.searchBar input {
   margin: 0;
-  padding: 0;
+  border: 0;
 }
 
-#searchClose{
+#searchClose {
   position: absolute;
   top: 0;
   right: 0;
-  color: var(--gray);
+  color: var(--gray-light);
   padding: 15px;
 }
 

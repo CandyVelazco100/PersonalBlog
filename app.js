@@ -18,6 +18,9 @@ const app = express();
 // Defaults to 5000, but can be overridden by the PORT environment variable
 const PORT = 5000 || process.env.PORT;
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 //Serve static files from the 'public' directory
 app.use(express.static('public'));
 
