@@ -6,6 +6,22 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const adminLayout = '../views/layouts/admin'
+const jwtSecret = process.env.JWT_SECRET;
+
+const authMiddleware = (req, res, next) => {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).json( { message: 'Unauthorized'} );
+    }
+
+    try{
+        const decoded = jwt.verify(token, jwtSecret);
+        req.userId = decoded.userId;
+        next();
+    }catch(error){
+        res.status(401).json( { message: 'Unauthorized'} );
+    }
+}
 
 router.get('/admin', async (req, res) => {
     try{
@@ -22,6 +38,36 @@ router.get('/admin', async (req, res) => {
 
 //Check Login
 router.post('/admin', async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      
+      const user = await User.findOne( { username } );
+  
+      if(!user) {
+        return res.status(401).json( { message: 'Invalid credentials' } );
+      }
+  
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+  
+      if(!isPasswordValid) {
+        return res.status(401).json( { message: 'Invalid credentials' } );
+      }
+  
+      const token = jwt.sign({ userId: user._id}, jwtSecret );
+      res.cookie('token', token, { httpOnly: true });
+      res.redirect('/dashboard');
+  
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+//Dashboard
+router.get('/dashboard', authMiddleware, async (req, res) => {
+    res.render('admin/dashboard');
+});
+
+/* router.post('/admin', async (req, res) => {
     try{
         const { username, password } = req.body;
         if(req.body.username === 'admin' && req.body.password === 'password'){
@@ -33,7 +79,7 @@ router.post('/admin', async (req, res) => {
         console.log(error);
     }
 });
-
+ */
 // Register
 router.post('/register', async (req, res) => {
     try{
