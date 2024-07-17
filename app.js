@@ -6,6 +6,11 @@ const express = require('express');
 // Use Express EJS Layouts for templating
 const expressLayout = require('express-ejs-layouts');
 
+// Parse cookies from incoming requests
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+
 const connectDB = require('./server/config/db');
 
 // Connect to DB
@@ -20,6 +25,18 @@ const PORT = 5000 || process.env.PORT;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
+
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI
+    }),
+    //cookie: { maxAge: new Date ( Date.now() + (3600000) ) } 
+  }));
+  
 
 //Serve static files from the 'public' directory
 app.use(express.static('public'));
