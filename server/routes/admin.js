@@ -64,7 +64,19 @@ router.post('/admin', async (req, res) => {
 
 //Dashboard
 router.get('/dashboard', authMiddleware, async (req, res) => {
-    res.render('admin/dashboard');
+    try{
+        const locals = {
+            title: 'Dashboard',
+            description: 'Simple blog with NodeJS, Express and MongoDB'
+        }
+
+        const data = await Post.find();
+        res.render('admin/dashboard', { 
+            locals, 
+            data });
+    }catch(error){
+
+    }
 });
 
 /* router.post('/admin', async (req, res) => {
