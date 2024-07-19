@@ -74,6 +74,7 @@ textarea {
 
 .btn-delete {
   padding: 10px 16px;
+  background-color: var(--red);
 }
 
 .container {
@@ -303,35 +304,34 @@ textarea {
   padding: 15px;
 }
 
-.admin-title{
+.admin-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.admin-posts{
+.admin-posts {
   padding: 0;
   margin: 0;
 }
 
-.admin-posts-controls form{
-  display: inline-block ;
+.admin-post-controls form {
+  display: inline-block;
 }
 
-.admin-posts-controls .btn{
+.admin-post-controls .btn  {
   display: inline-block;
   background-color: var(--black);
   color: var(--gray-light);
   border: 0;
   text-decoration: none;
-  font-size: 8rem;
+  font-size: .8rem;
   padding: 4px 8px;
   line-height: 2;
 }
 
-.admin-posts li{
+.admin-posts li {
   display: flex;
   justify-content: space-between;
   padding: 10px 0;
 }
-

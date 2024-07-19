@@ -6,6 +6,8 @@ const express = require('express');
 // Use Express EJS Layouts for templating
 const expressLayout = require('express-ejs-layouts');
 
+const methodOverride = require('method-override');
+
 // Parse cookies from incoming requests
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -26,6 +28,7 @@ const PORT = 5000 || process.env.PORT;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(methodOverride('_method'))
 
 app.use(session({
     secret: 'keyboard cat',
