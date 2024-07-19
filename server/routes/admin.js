@@ -94,12 +94,10 @@ router.get('/dashboard', authMiddleware, async (req, res) => {
       data,
       layout: adminLayout
     });
-
   } catch (error) {
     console.log(error);
   }
 });
-
 
 /**
  * GET /
@@ -239,16 +237,13 @@ router.post('/register', async (req, res) => {
  * Admin - Delete Post
 */
 router.delete('/delete-post/:id', authMiddleware, async (req, res) => {
-
   try {
     await Post.deleteOne( { _id: req.params.id } );
     res.redirect('/dashboard');
   } catch (error) {
     console.log(error);
   }
-
 });
-
 
 /**
  * GET /
@@ -259,6 +254,5 @@ router.get('/logout', (req, res) => {
   //res.json({ message: 'Logout successful.'});
   res.redirect('/');
 });
-
 
 module.exports = router;
